@@ -177,11 +177,16 @@ function updateResources(username, resources, eventString) {
       break;
     }
 
-    //"[PLAYER1] stole [RESOURCES] from [PLAYER2]"
+    // Handles 1. Knight Steal, 2. Monopoly Steal
+    //1. "[PLAYER1] stole [RESOURCES] from [PLAYER2]"
+    //2. "[PLAYER] stole [RESOURCES]"
     case "stole": {
       const multiplier = username === eventStringList[0] ? 1 : -1;
+
       const start_index = eventStringList.indexOf("stole") + 1;
-      const end_index = eventStringList.indexOf("from");
+      const end_index = eventStringList.includes("from")
+        ? eventStringList.indexOf("from")
+        : eventStringList.length;
 
       const delta = {};
 
